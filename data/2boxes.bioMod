@@ -1,0 +1,67 @@
+version 3
+
+// Informations générales
+root_actuated	0
+external_forces	0
+
+// DEFINITION DU SEGMENTS
+
+// Box1
+	 segment Box1
+    translations xyz
+    rotations	 xyz
+		mass 1
+		inertia 
+		  1 0 0 
+		  0 1 0
+		  0 0 1
+		com 0 0 0
+		mesh  .2  .2  .2
+		mesh  .2 -.2  .2
+		mesh  .2 -.2 -.2
+		mesh  .2  .2 -.2
+		mesh -.2  .2 -.2
+		mesh -.2  .2  .2
+		mesh -.2 -.2  .2
+		mesh -.2 -.2 -.2
+		mesh -.2  .2 -.2
+		mesh  .2  .2 -.2
+		mesh  .2 -.2 -.2
+		mesh -.2 -.2 -.2
+		mesh -.2 -.2  .2
+		mesh  .2 -.2  .2
+		mesh  .2  .2  .2
+		mesh -.2  .2  .2
+		mesh  .2  .2  .2
+		mesh  .2  .2 -.2
+	endsegment
+
+// Box2
+	 segment Box2
+    translations xyz
+    rotations	 xyz
+		mass 1
+		inertia 
+		  1 0 0 
+		  0 1 0
+		  0 0 1
+		com 0 0 0
+		mesh  .2  .2  .2
+		mesh  .2 -.2  .2
+		mesh  .2 -.2 -.2
+		mesh  .2  .2 -.2
+		mesh -.2  .2 -.2
+		mesh -.2  .2  .2
+		mesh -.2 -.2  .2
+		mesh -.2 -.2 -.2
+		mesh -.2  .2 -.2
+		mesh  .2  .2 -.2
+		mesh  .2 -.2 -.2
+		mesh -.2 -.2 -.2
+		mesh -.2 -.2  .2
+		mesh  .2 -.2  .2
+		mesh  .2  .2  .2
+		mesh -.2  .2  .2
+		mesh  .2  .2  .2
+		mesh  .2  .2 -.2
+	endsegment
