@@ -1,0 +1,12 @@
+name: kin6839_lab
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - numpy
+  - biorbd
+  - casadi
+  - seaborn
+  - biorbd-viz
+  - matplotlib
+  - scipy
