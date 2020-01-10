@@ -1,0 +1,148 @@
+version 3
+
+// Informations générales
+root_actuated	0
+external_forces	0
+
+// DEFINITION DU SEGMENTS
+
+
+
+// Arm1
+
+    segment Arm1
+		mass 1
+		inertia 
+		  1 0 0 
+		  0 1 0
+		  0 0 1
+		com 0 0 0
+		mesh  .1  .1  .4
+		mesh  .1 -.1  .4
+		mesh  .1 -.1 -.4
+		mesh  .1  .1 -.4
+		mesh -.1  .1 -.4
+		mesh -.1  .1  .4
+		mesh -.1 -.1  .4
+		mesh -.1 -.1 -.4
+		mesh -.1  .1 -.4
+		mesh  .1  .1 -.4
+		mesh  .1 -.1 -.4
+		mesh -.1 -.1 -.4
+		mesh -.1 -.1  .4
+		mesh  .1 -.1  .4
+		mesh  .1  .1  .4
+		mesh -.1  .1  .4
+		mesh  .1  .1  .4
+		mesh  .1  .1 -.4
+	endsegment
+// Arm2
+
+    segment Arm2
+    parent Arm1
+    RTinMatrix    1
+    RT
+            1.00000    0.00000    0.00000    0.2
+            0.00000    1.00000    0.00000    0
+            0.00000    0.00000    1.00000    0.4
+            0.00000    0.00000    0.00000    1.00000
+    rotations	 x
+		mass 1
+		inertia 
+		  1 0 0 
+		  0 1 0
+		  0 0 1
+		com 0 0 0.
+		mesh  .1  .1  .6
+		mesh  .1 -.1  .6
+		mesh  .1 -.1 -.0
+		mesh  .1  .1 -.0
+		mesh -.1  .1 -.0
+		mesh -.1  .1  .6
+		mesh -.1 -.1  .6
+		mesh -.1 -.1 -.0
+		mesh -.1  .1 -.0
+		mesh  .1  .1 -.0
+		mesh  .1 -.1 -.0
+		mesh -.1 -.1 -.0
+		mesh -.1 -.1  .6
+		mesh  .1 -.1  .6
+		mesh  .1  .1  .6
+		mesh -.1  .1  .6
+		mesh  .1  .1  .6
+		mesh  .1  .1 -.0
+	endsegment
+ 
+// Arm3
+
+    segment Arm3
+    parent Arm2
+    RTinMatrix    1
+    RT
+            1.00000    0.00000    0.00000    0.2
+            0.00000    1.00000    0.00000    0
+            0.00000    0.00000    1.00000    0.6
+            0.00000    0.00000    0.00000    1.00000
+    rotations	 x
+		mass 1
+		inertia 
+		  1 0 0 
+		  0 1 0
+		  0 0 1
+		com 0 0 0.
+		mesh  .1  .1  .4
+		mesh  .1 -.1  .4
+		mesh  .1 -.1 -.0
+		mesh  .1  .1 -.0
+		mesh -.1  .1 -.0
+		mesh -.1  .1  .4
+		mesh -.1 -.1  .4
+		mesh -.1 -.1 -.0
+		mesh -.1  .1 -.0
+		mesh  .1  .1 -.0
+		mesh  .1 -.1 -.0
+		mesh -.1 -.1 -.0
+		mesh -.1 -.1  .4
+		mesh  .1 -.1  .4
+		mesh  .1  .1  .4
+		mesh -.1  .1  .4
+		mesh  .1  .1  .4
+		mesh  .1  .1 -.0
+	endsegment
+
+// Arm4
+
+    segment Arm4
+    parent Arm3
+    RTinMatrix    1
+    RT
+            1.00000    0.00000    0.00000    0.2
+            0.00000    1.00000    0.00000    0
+            0.00000    0.00000    1.00000    0.4
+            0.00000    0.00000    0.00000    1.00000
+    rotations	 x
+		mass 1
+		inertia 
+		  1 0 0 
+		  0 1 0
+		  0 0 1
+		com 0 0 0.
+		mesh  .1  .1  .2
+		mesh  .1 -.1  .2
+		mesh  .1 -.1 -.0
+		mesh  .1  .1 -.0
+		mesh -.1  .1 -.0
+		mesh -.1  .1  .2
+		mesh -.1 -.1  .2
+		mesh -.1 -.1 -.0
+		mesh -.1  .1 -.0
+		mesh  .1  .1 -.0
+		mesh  .1 -.1 -.0
+		mesh -.1 -.1 -.0
+		mesh -.1 -.1  .2
+		mesh  .1 -.1  .2
+		mesh  .1  .1  .2
+		mesh -.1  .1  .2
+		mesh  .1  .1  .2
+		mesh  .1  .1 -.0
+	endsegment
