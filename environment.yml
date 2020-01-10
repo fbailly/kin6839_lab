@@ -10,6 +10,6 @@ dependencies:
   - matplotlib
   - scipy
   - pyqt
-  
- - pip:
+  - pip
+  - pip:
       - twine
