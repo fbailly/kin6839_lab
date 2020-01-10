@@ -1,2 +1,3 @@
-xorg
+freeglut3-dev 
+mesa-common-dev
 libgl1-mesa-dev
