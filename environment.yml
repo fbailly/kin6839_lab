@@ -7,8 +7,9 @@ dependencies:
   - biorbd
   - casadi
   - seaborn
-  - biorbd-viz
   - matplotlib
   - scipy
   - pyqt
   
+ - pip:
+      - twine
