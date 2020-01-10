@@ -1,7 +1,7 @@
 name: kin6839_lab
 channels:
-  - conda-forge
   - pariterre
+  - conda-forge
 dependencies:
   - python=3.6
   - numpy
@@ -13,4 +13,4 @@ dependencies:
   - pyqt
   - vtk
   - pyomeca
-  - biorbd-viz=1.1.0
+  - biorbd-viz
