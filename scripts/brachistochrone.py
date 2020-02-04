@@ -7,8 +7,9 @@ import numpy as np
 tf         = MX.sym('tf')
 state      = MX.sym('state',3)
 control    = MX.sym('control')
-N          = 20
+N          = 500
 dN         = tf/N
+plt.ion()
 
 def func_ode(state,control):
 	x = state[0]
@@ -46,9 +47,9 @@ ubw += [inf]
 w0 += [1]
 Xk = MX.sym('X0', 3)
 w += [Xk]
-lbw += [0]*3
-ubw += [0]*3
-w0  += [0]*3
+lbw += [0.01]*3
+ubw += [0.01]*3
+w0  += [0.01]*3
 
 # Formulate the NLP
 for k in range(N):
@@ -56,13 +57,13 @@ for k in range(N):
 	Uk = MX.sym('U_' + str(k))
 	w   += [Uk]
 	if k == (N-1) :
-		lbw += [0]
-		ubw += [np.pi]
-		w0  += [0]
+		lbw += [0.01]
+		ubw += [np.pi-0.01]
+		w0  += [0.01]
 	else :
-		lbw += [0]
-		ubw += [np.pi]
-		w0  += [0]
+		lbw += [0.01]
+		ubw += [np.pi-0.01]
+		w0  += [0.01]
 
     # Integrate till the end of the interval
 	Fk = func_int(Xk, Uk)
@@ -72,14 +73,14 @@ for k in range(N):
 	Xk = MX.sym('X_' + str(k+1), 3)
 	if k+1 == N :
 		w   += [Xk]
-		lbw +=  [5,-2,-inf]
-		ubw +=  [5, -2,inf]
-		w0  += [0]*3
+		lbw +=  [100,-30,0]
+		ubw +=  [100, -30,inf]
+		w0  +=  [0]*2 + [0.01]
 	else :
 		w   += [Xk]
-		lbw += [-100]*3
+		lbw += [-100]*2 + [0]
 		ubw += [100]*3
-		w0  += [0]*3
+		w0  += [0]*2 + [0.01]
 		# Add equality constraint
 	g   += [Xk_end-Xk]
 	lbg += [0]*3

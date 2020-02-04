@@ -1,0 +1,141 @@
+version    3
+
+// General informations
+root_actuated 1
+external_forces 0
+
+
+
+// Informations about the root segment
+    // Segment
+    segment    Char
+        translations x
+        mass    1
+        inertia
+            0.1    0.00000    0.00000
+            0.00000    0.0    0.00000
+            0.00000    0.00000    0.1
+        com     0         0    0
+        mesh   -0.1000   0    0.1            
+        mesh    0.1000   0    0.1            
+        mesh    0.1000   0   -0.1            
+        mesh   -0.1000   0   -0.1   
+        mesh   -0.1000   0    0.1         
+    endsegment
+    
+    // Markers
+        marker  root1
+            parent  Char
+            position    -0.1  0  0.1
+        endmarker
+        
+        marker  root2
+            parent  Char
+            position    0.1  0  0.1 
+        endmarker
+        
+        marker  root3
+            parent  Char
+            position  0.1   0 -0.1 
+        endmarker
+        
+        marker  root4
+            parent  Char
+            position    -0.1   0 -0.1 
+        endmarker
+        
+    
+
+    // Actuator
+        actuator    Char
+            type    Constant
+            dof    TransX
+            direction    positive
+            Tmax    0.000000
+        endactuator
+        actuator    Char
+            type    Constant
+            dof    TransX
+            direction    negative
+            Tmax    0.000000
+        endactuator
+
+
+
+
+// Informations about the body 
+    // Segment
+    segment    Arm
+        parent    Char	
+        RTinMatrix    1
+        RT
+            1.00000    0.00000    0.00000    0
+            0.00000    1.00000    0.00000    0
+            0.00000    0.00000    1.00000    0
+            0.00000    0.00000    0.00000    1.00000
+        rotations    y
+        mass    1
+        inertia
+            0.50000    0.00000     0.00000
+            0.00000    0.0        0.00000
+            0.00000    0.00000    0.5
+        com        0.00000        0       -1
+        mesh    -0.05   0 0.05 
+        mesh    0.05   0   0.05
+        mesh    0.05   0   -1 
+        mesh     -0.05  0 -1 
+        mesh    -0.05   0 0.05
+    endsegment
+    
+    // Markers
+        marker  armRoot
+            parent Arm
+            position    -0.0   0 0.0
+        endmarker
+        marker  arm1
+            parent Arm
+            position    -0.05   0 0.05    
+        endmarker
+
+        marker  arm2
+            parent Arm
+            position    0.05   0   0.05
+        endmarker
+
+        marker  arm3
+            parent Arm
+            position    0.05   0   -1 
+        endmarker
+
+        marker  arm4
+            parent Arm
+            position    -0.05  0 -1          
+        endmarker
+        marker  armInter
+            parent Arm
+            position    -0.0   0 -0.5
+        endmarker
+        marker  armTip
+            parent Arm
+            position    -0.0  0 -1          
+        endmarker
+
+    // Actuator
+        actuator    Arm
+            type    constant
+            dof     RotY
+            direction       positive
+            Tmax    0
+        endactuator
+        actuator    Arm
+            type    constant
+            dof     RotY
+            direction       negative
+            Tmax    0
+        endactuator
+
+
+
+
+
+
