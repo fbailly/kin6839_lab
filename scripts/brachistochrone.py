@@ -35,7 +35,7 @@ w=[]
 w0 = []
 lbw = []
 ubw = []
-J = tf
+J = tf*tf
 g=[]
 lbg = []
 ubg = []
@@ -73,8 +73,8 @@ for k in range(N):
 	Xk = MX.sym('X_' + str(k+1), 3)
 	if k+1 == N :
 		w   += [Xk]
-		lbw +=  [5,-5,0]
-		ubw +=  [5, -5,inf]
+		lbw +=  [8,-5,0]
+		ubw +=  [8, -5,inf]
 		w0  +=  [0]*2 + [0.01]
 	else :
 		w   += [Xk]
@@ -104,10 +104,12 @@ y_opt  = w_opt[2::4]
 v_opt  = w_opt[3::4]
 u_opt  = w_opt[4::4]
 
-plt.ion()
 plt.plot(x_opt,y_opt)
+plt.title('XY minimal time trajectory')
 plt.figure()
-plt.plot(u_opt)
+plt.plot(u_opt,'x')
+plt.title('Optimal slope')
 plt.figure()
 plt.plot(v_opt)
-embed()
+plt.title('Optimal speed')
+plt.show(block=True)

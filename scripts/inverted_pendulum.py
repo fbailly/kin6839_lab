@@ -8,7 +8,7 @@ import time
 
 #plt.ion()
 
-T = 1
+T = 5
 N =  100               # number of control intervals
 x = MX.sym('x',4)  # state trajectory
 # pos  = X[0,:]
@@ -61,7 +61,7 @@ for k in range(N):
     Fk = INT(x0 = Xk, p = Uk)
     Xk_end = Fk['xf']
 
-    # New NLP variable for state at end of interval
+    # New NLP variable for sta  te at end of interval
     Xk = MX.sym('X_' + str(k+1), 4)
     if k+1 == N :
         w   += [Xk]
@@ -70,8 +70,8 @@ for k in range(N):
         w0  +=  [-1,0,3,0]
     else :
         w   += [Xk]
-        lbw += [-1000,-1000,-1000,-1000]
-        ubw += [1000,1000,1000,1000]
+        lbw += [-1,-1000,-1000,-1000]
+        ubw += [0.1,1000,1000,1000]
         w0  += [0]*4
         # Add equality constraint
     g   += [Xk_end-Xk]
