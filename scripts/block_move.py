@@ -4,18 +4,18 @@ from IPython import embed
 import matplotlib.pyplot as plt
 import numpy as np
 
-tf         = MX.sym('tf')
-state      = MX.sym('state',3)
+T = 2
+state      = MX.sym('state',2)
 control    = MX.sym('control')
 N          = 100
-dN         = tf/N
+dN         = T/N
 plt.ion()
 
 def func_ode(state,control):
 	x = state[0]
-	y = state[1]
-	v = state[2]
-	return vertcat(v*sin(control),v*cos(control),-9.81*cos(control))
+	v = state[1]
+	u = control
+	return vertcat(v,u)
 
 def func_int(state,control) :
 	M = 10
@@ -23,9 +23,6 @@ def func_int(state,control) :
 		dState = func_ode(state,control)
 		state  += dState*dN/M
 	return state
-
-# Objective term
-L =  tf*tf # quadratic
 
 # Formulate discrete time dynamics
 
@@ -35,56 +32,47 @@ w=[]
 w0 = []
 lbw = []
 ubw = []
-J = tf
+J = 0
 g=[]
 lbg = []
 ubg = []
 
 # "Lift" initial conditions
-w += [tf]
-lbw += [0]
-ubw += [inf]
-w0 += [1]
-Xk = MX.sym('X0', 3)
+Xk = MX.sym('X0', 2)
 w += [Xk]
-lbw += [0.01]*3
-ubw += [0.01]*3
-w0  += [0.01]*3
+lbw += [0.0]*2
+ubw += [0.0]*2
+w0  += [0.0]*2
 
 # Formulate the NLP
 for k in range(N):
     # New NLP variable for the control
 	Uk = MX.sym('U_' + str(k))
 	w   += [Uk]
-	if k == (N-1) :
-		lbw += [0.01]
-		ubw += [np.pi-0.01]
-		w0  += [0.01]
-	else :
-		lbw += [0.01]
-		ubw += [np.pi-0.01]
-		w0  += [0.01]
+	lbw += [-2]
+	ubw += [2]
+	w0  += [0]
 
     # Integrate till the end of the interval
 	Fk = func_int(Xk, Uk)
 	Xk_end = Fk
-	
+	J += Uk*Uk
 	# New NLP variable for state at end of interval
-	Xk = MX.sym('X_' + str(k+1), 3)
+	Xk = MX.sym('X_' + str(k+1), 2)
 	if k+1 == N :
 		w   += [Xk]
-		lbw +=  [5,-5,0]
-		ubw +=  [5, -5,inf]
-		w0  +=  [0]*2 + [0.01]
+		lbw +=  [1,0]
+		ubw +=  [1,0]
+		w0  +=  [0]*2
 	else :
 		w   += [Xk]
-		lbw += [-100]*2 + [0]
-		ubw += [100]*3
-		w0  += [0]*2 + [0.01]
+		lbw += [-100]*2 
+		ubw += [100]*2
+		w0  += [0]*2 
 		# Add equality constraint
 	g   += [Xk_end-Xk]
-	lbg += [0]*3
-	ubg += [0]*3
+	lbg += [0]*2
+	ubg += [0]*2
 
 # Create NLP solver 
 t = time.time()
@@ -98,16 +86,12 @@ sol = solver(x0=w0, lbx=lbw, ubx=ubw, lbg=lbg, ubg=ubg)
 print(f"Time to solve regular problem {time.time()-t}")
 w_opt = sol['x'].full().flatten()
 
-tf_opt = w_opt[0]
-x_opt  = w_opt[1::4]
-y_opt  = w_opt[2::4]
-v_opt  = w_opt[3::4]
-u_opt  = w_opt[4::4]
+p_opt  = w_opt[0::3]
+v_opt  = w_opt[1::3]
+u_opt  = w_opt[2::3]
 
 plt.ion()
-plt.plot(x_opt,y_opt)
-plt.figure()
-plt.plot(u_opt)
-plt.figure()
+plt.plot(p_opt)
 plt.plot(v_opt)
+plt.plot(u_opt)
 embed()
