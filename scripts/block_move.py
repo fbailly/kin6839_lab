@@ -4,11 +4,12 @@ from IPython import embed
 import matplotlib.pyplot as plt
 import numpy as np
 
-T = 2
+# T = 2
+temps      = MX.sym('time')
 state      = MX.sym('state',2)
 control    = MX.sym('control')
 N          = 100
-dN         = T/N
+dN         = temps/N
 plt.ion()
 
 def func_ode(state,control):
@@ -32,11 +33,15 @@ w=[]
 w0 = []
 lbw = []
 ubw = []
-J = 0
+J = temps
 g=[]
 lbg = []
 ubg = []
 
+w += [temps]
+lbw += [0.0]
+ubw += [inf]
+w0  += [1]
 # "Lift" initial conditions
 Xk = MX.sym('X0', 2)
 w += [Xk]
@@ -56,7 +61,7 @@ for k in range(N):
     # Integrate till the end of the interval
 	Fk = func_int(Xk, Uk)
 	Xk_end = Fk
-	J += Uk*Uk
+	# J += Uk*Uk
 	# New NLP variable for state at end of interval
 	Xk = MX.sym('X_' + str(k+1), 2)
 	if k+1 == N :
@@ -86,12 +91,13 @@ sol = solver(x0=w0, lbx=lbw, ubx=ubw, lbg=lbg, ubg=ubg)
 print(f"Time to solve regular problem {time.time()-t}")
 w_opt = sol['x'].full().flatten()
 
-p_opt  = w_opt[0::3]
-v_opt  = w_opt[1::3]
-u_opt  = w_opt[2::3]
+p_opt  = w_opt[1::3]
+v_opt  = w_opt[2::3]
+u_opt  = w_opt[3::3]
 
+print(w_opt[0])
 plt.ion()
 plt.plot(p_opt)
 plt.plot(v_opt)
 plt.plot(u_opt)
-embed()
+plt.show(block=True)

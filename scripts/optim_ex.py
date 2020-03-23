@@ -16,6 +16,7 @@ y = SX.sym("y")
 
 # Formulate the NLP
 f = (1-x)**2 + (y-x**2)**2
+g = 0
 g = (x+1)**2 + (y+2)**2 - 1
 nlp = {'x':vertcat(x,y), 'f':f, 'g':g}
 
@@ -37,11 +38,12 @@ x = np.linspace(-2,3,1000)
 y = np.linspace(-2,3,1000)
 X,Y = np.meshgrid(x,y)
 F = (1-X)**2 + (Y-X**2)**2
-G = (X+1)**2 + (Y+2)**2 - 1 
+G = (X+1)**2 + (Y+2)**2 - 1
 plt.contour(X,Y,F,100)
 plt.plot(res["x"][0],res["x"][1],'ro')
 plt.contour(X,Y,G,np.array([0]),colors = ['red'])
 plt.xlim([-2,3])
 plt.ylim([-2,3])
+plt.axis("equal")
 plt.show(block=True)
 embed()
